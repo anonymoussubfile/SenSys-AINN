@@ -322,10 +322,37 @@ class AINN_SC_Merged(nn.Module):
                 diag = DP[:, :, t-1, u-1]    # [B,R]
                 DP[:, :, t, u] = C_all[:, :, t-1, u-1] + self.nn2(torch.stack([up, left, diag], dim = -1))            # [B,R]
 
+        """
+        #The following approach speeds up DP computation during inference (deployment); feel free to switch to this version.
+        diags = []
+        for k in range(2, 2*T + 1):
+            t_vals = torch.arange(1, T+1)
+            u_vals = k - t_vals
+            mask = (u_vals >= 1) & (u_vals <= T)
+            t_idx = t_vals[mask]
+            u_idx = u_vals[mask]
+            diags.append((t_idx, u_idx))
+
+        for t_idx, u_idx in diags:
+            t_e = t_idx.view(1, 1, -1).to(DP.device)
+            u_e = u_idx.view(1, 1, -1).to(DP.device)
+
+            up   = DP[:, :, t_e - 1, u_e]     # [B, R, L]
+            left = DP[:, :, t_e,     u_e - 1] # [B, R, L]
+            diag = DP[:, :, t_e - 1, u_e - 1] # [B, R, L]
+
+            c_loc = C_all[:, :, t_e - 1, u_e - 1]  # [B, R, L]
+
+            cand = torch.stack([up, left, diag], dim=-1)  # [B, R, L, 3]
+            trans = self.nn2(cand)                        # [B, R, L]
+
+            DP[:, :, t_e, u_e] = c_loc + trans
+        """
+
         all_scores = DP[:, :, T, T]                 # [B, R]
         all_scores = all_scores.view(B, K, B_ref)   # [B, K, B_ref]
 
-
+        
 
         flat_scores = all_scores.reshape(B, K * B_ref)            # lower = better
         ref_class = torch.arange(K, device=x.device).repeat_interleave(B_ref)  # [K*B_ref]
