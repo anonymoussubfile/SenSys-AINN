@@ -6,8 +6,8 @@ torch.manual_seed(0)
 
 gt_ratio_data = np.load('monitor/gt_ratio_list5_log_exp_train_stage1.npy')
 pred_ratio_data = np.load('monitor/pred_ratio_list5_log_exp_train_stage1.npy')
-weight_dataset = np.load('feature_tmp5/feature_weight_train.npy')
-profit_dataset = np.load('feature_tmp5/feature_profit_train.npy')
+weight_dataset = np.load('feature/feature_weight_train.npy')
+profit_dataset = np.load('feature/feature_profit_train.npy')
 label_dataset = np.load('monitor/label_list5_log_exp_train_stage1.npy')
 
 pred_block = []
