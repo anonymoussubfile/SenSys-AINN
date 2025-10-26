@@ -1,4 +1,4 @@
-# Algorithm-Informed Neural Network (AINN)
+# Towards Algorithmically Grounded Embedded AI Models
 
 This repository contains the official implementation of **Algorithm-Informed Neural Networks (AINNs)**, featuring three example applications:
 
