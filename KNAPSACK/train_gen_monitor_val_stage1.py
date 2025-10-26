@@ -68,15 +68,15 @@ class FeatureDataset(torch.utils.data.Dataset):
     def __init__(self, mode = 'train'):
         
         if mode == 'train':
-            self.weight_dataset = np.load('feature_tmp5/feature_weight_{}.npy'.format(mode))[:]
-            self.profit_dataset = np.load('feature_tmp5/feature_profit_{}.npy'.format(mode))[:]
-            self.value = np.load('feature_tmp5/label_{}.npy'.format(mode))[:]
-            self.ind_dataset = np.load('feature_tmp5/label_ind_{}.npy'.format(mode))[:]
+            self.weight_dataset = np.load('feature/feature_weight_{}.npy'.format(mode))[:]
+            self.profit_dataset = np.load('feature/feature_profit_{}.npy'.format(mode))[:]
+            self.value = np.load('feature/label_{}.npy'.format(mode))[:]
+            self.ind_dataset = np.load('feature/label_ind_{}.npy'.format(mode))[:]
         else:
-            self.weight_dataset = np.load('feature_tmp5/feature_weight_{}.npy'.format(mode)) #[2000:12000]
-            self.profit_dataset = np.load('feature_tmp5/feature_profit_{}.npy'.format(mode)) #[2000:12000]
-            self.value = np.load('feature_tmp5/label_{}.npy'.format(mode)) #[2000:12000]
-            self.ind_dataset = np.load('feature_tmp5/label_ind_{}.npy'.format(mode)) #[2000:12000]
+            self.weight_dataset = np.load('feature/feature_weight_{}.npy'.format(mode)) #[2000:12000]
+            self.profit_dataset = np.load('feature/feature_profit_{}.npy'.format(mode)) #[2000:12000]
+            self.value = np.load('feature/label_{}.npy'.format(mode)) #[2000:12000]
+            self.ind_dataset = np.load('feature/label_ind_{}.npy'.format(mode)) #[2000:12000]
         
     def __len__(self):
         return len(self.weight_dataset)
