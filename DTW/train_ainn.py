@@ -42,6 +42,8 @@ class FeatureDataset(torch.utils.data.Dataset):
 
 
 
+#For each neural block, training converges faster than in a single end-to-end
+#network because the constraints are tailored to the block’s specific subtask.
 
 # -------------------- Repro --------------------
 SEED = 1234
