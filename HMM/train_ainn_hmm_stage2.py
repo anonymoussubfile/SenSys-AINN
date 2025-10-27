@@ -9,7 +9,12 @@ import torch.nn.functional as F
 from hmmlearn.hmm import CategoricalHMM
 import warnings
 
-
+"""
+For each neural block, training converges faster (less iterations) than in a single end-to-end network because the constraints are tailored to the block’s specific subtask.
+When incorporating prior knowledge as a loss regularizer, we assign it a small weight—typically at least an order of magnitude smaller than the main loss term—to prevent over-reliance, recognizing that AINN operates in a different representation space.
+A gradient-free optimization method is provided here, which can be applied to both differentiable and non-differentiable designs.
+A gradient-based optimization approach is also demonstrated in the keyword-spotting (DTW) task.
+"""
 num_sample = 50
 
 warnings.filterwarnings(
